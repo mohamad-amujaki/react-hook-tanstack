@@ -1,16 +1,16 @@
-interface HeaderProps {
-    username: string;
-}
+import { useContext } from "react";
+import { Avatar } from "./ui/avatar";
+import { UserContext } from "@/context/userContext";
 
-export const Header = ({ username }: HeaderProps) => {
+export const Header = () => {
+    const data = useContext(UserContext);
+
     return (
         <header className="flex justify-between">
             <div className="m-4">Logo</div>
             <div className="m-4 flex gap-2 items-center">
-                {username}
-                <span className="bg-blue-600 text-white size-8 rounded-full text-2xl flex justify-center">
-                    {username.charAt(0)}
-                </span>
+                {data.username}
+                <Avatar username={data.username} />
             </div>
         </header>
     );

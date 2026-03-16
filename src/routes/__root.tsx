@@ -48,7 +48,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             </head>
             <body className="font-sans antialiased [wrap-anywhere] selection:bg-[rgba(79,184,178,0.24)]">
                 {children}
-                suppressHydrationWarning={true}
                 <TanStackDevtools
                     config={{
                         position: "bottom-right",
