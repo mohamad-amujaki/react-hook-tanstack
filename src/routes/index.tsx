@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/")({ component: App });
 
@@ -10,7 +10,17 @@ function App() {
         username: "",
         password: ",",
     });
+    const [isAdmin, setIsAdmin] = useState(false);
 
+    // useEffect adalah jenis React Hook untuk menjalankan sebuah fungsi sebagai efek samping dari sebuah perubahan dependency
+    useEffect(() => {
+        console.log("Hello from useEffect", loginData.username, counter);
+        if (loginData.username === "admin" && loginData.password === "admin") {
+            setIsAdmin(true);
+        } else {
+            setIsAdmin(false);
+        }
+    }, [loginData.username, loginData.password]);
     return (
         <div className="flex justify-center items-center h-screen">
             <div className="w-75">
@@ -61,6 +71,11 @@ function App() {
                     />
                     <h2>Username : {loginData.username} </h2>
                     <h2>Password : {loginData.password} </h2>
+                </div>
+                <div>
+                    <h2 className="text-4xl">
+                        {isAdmin ? "Welcome Admin" : "Welcome Guest"}
+                    </h2>
                 </div>
             </div>
         </div>
