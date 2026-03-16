@@ -1,12 +1,12 @@
-import { UserContext } from "@/context/userContext";
-import { useContext } from "react";
+import { userAtom } from "@/atoms/userAtom";
+import { useAtomValue } from "jotai";
 
 export const Dashboard = () => {
-    const data = useContext(UserContext);
+    const userData = useAtomValue(userAtom);
     return (
         <main className="flex flex-1 bg-white p-2 ml-4 h-full">
             <div className="text-black text-2xl">
-                Welcome Back, {data.username}
+                Welcome Back, {userData.username}
             </div>
         </main>
     );

@@ -2,7 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Sidebar } from "@/components/sidebar";
 import { Header } from "@/components/header";
 import { Dashboard } from "@/components/dashboard";
-import { UserContext } from "@/context/userContext";
+import { useSetAtom } from "jotai";
+import { userAtom } from "@/atoms/userAtom";
+import { useEffect } from "react";
 
 export const Route = createFileRoute("/")({
     component: App,
@@ -16,15 +18,19 @@ export const Route = createFileRoute("/")({
 
 function App() {
     const data = Route.useLoaderData();
+    const setUserData = useSetAtom(userAtom);
+
+    useEffect(() => {
+        setUserData({ username: data.username });
+    }, [data, setUserData]);
+
     return (
-        <UserContext.Provider value={{ username: data.username }}>
-            <div className="flex flex-col">
-                <Header />
-                <div className="flex h-screen">
-                    <Sidebar />
-                    <Dashboard />
-                </div>
+        <div className="flex flex-col">
+            <Header />
+            <div className="flex h-screen">
+                <Sidebar />
+                <Dashboard />
             </div>
-        </UserContext.Provider>
+        </div>
     );
 }
