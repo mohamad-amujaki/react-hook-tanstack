@@ -1,36 +1,33 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Sidebar } from "@/components/sidebar";
-import { Header } from "@/components/header";
-import { Dashboard } from "@/components/dashboard";
-import { useSetAtom } from "jotai";
+import { useHydrateAtoms } from "jotai/utils";
 import { userAtom } from "@/atoms/userAtom";
-import { useEffect } from "react";
+import { Dashboard } from "@/components/dashboard";
+import { Header } from "@/components/header";
+import { Sidebar } from "@/components/sidebar";
 
 export const Route = createFileRoute("/")({
-    component: App,
-    loader: () => {
-        // Ambil data dari API
-        return {
-            username: "mohamad-amujaki",
-        };
-    },
+	component: App,
+	loader: () => {
+		// Ambil data dari API
+		return {
+			username: "mohamad-amujaki",
+		};
+	},
 });
 
 function App() {
-    const data = Route.useLoaderData();
-    const setUserData = useSetAtom(userAtom);
+	const data = Route.useLoaderData();
 
-    useEffect(() => {
-        setUserData({ username: data.username });
-    }, [data, setUserData]);
+	// Dijalankan atau diset pada saat hydration
+	useHydrateAtoms([[userAtom, { username: data.username }]]);
 
-    return (
-        <div className="flex flex-col">
-            <Header />
-            <div className="flex h-screen">
-                <Sidebar />
-                <Dashboard />
-            </div>
-        </div>
-    );
+	return (
+		<div className="flex flex-col">
+			<Header />
+			<div className="flex h-screen">
+				<Sidebar />
+				<Dashboard />
+			</div>
+		</div>
+	);
 }

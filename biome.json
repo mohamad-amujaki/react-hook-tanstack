@@ -1,0 +1,13 @@
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"useButtonType": "error"
+			}
+		}
+	},
+	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+	"organizeImports": {
+		"enabled": true
+	}
+}
